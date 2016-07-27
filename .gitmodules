@@ -1,3 +1,3 @@
-[submodule "vendor/libgit2"]
+[submodule "vendor/libgit22"]
 	path = vendor/libgit2
 	url = https://github.com/libgit2/libgit2.git
