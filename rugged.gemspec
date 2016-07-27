@@ -19,9 +19,9 @@ Gem::Specification.new do |s|
   s.files                 = %w( README.md LICENSE )
   s.files                 += Dir.glob("lib/**/*.rb")
   s.files                 += Dir.glob("ext/**/*.[ch]")
-  s.files                 += Dir.glob("vendor/libgit2/cmake/**/*")
-  s.files                 += Dir.glob("vendor/libgit2/{include,src,deps}/**/*")
-  s.files                 += Dir.glob("vendor/libgit2/{CMakeLists.txt,Makefile.embed,AUTHORS,COPYING,libgit2.pc.in}")
+  s.files                 += Dir.glob("vendor/libgit22/cmake/**/*")
+  s.files                 += Dir.glob("vendor/libgit22/{include,src,deps}/**/*")
+  s.files                 += Dir.glob("vendor/libgit22/{CMakeLists.txt,Makefile.embed,AUTHORS,COPYING,libgit2.pc.in}")
   s.extensions            = ['ext/rugged/extconf.rb']
   s.required_ruby_version = '>= 1.9.3'
   s.description           = <<desc
