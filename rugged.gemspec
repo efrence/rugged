@@ -8,7 +8,7 @@ else
 end
 
 Gem::Specification.new do |s|
-  s.name                  = "rugged"
+  s.name                  = "rugged024"
   s.version               = VERSION
   s.date                  = Time.now.strftime('%Y-%m-%d')
   s.summary               = "Rugged is a Ruby binding to the libgit2 linkable library"
