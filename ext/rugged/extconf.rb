@@ -24,16 +24,16 @@ if !(MAKE = find_executable('gmake') || find_executable('make'))
 end
 
 CWD = File.expand_path(File.dirname(__FILE__))
-LIBGIT2_DIR = File.join(CWD, '..', '..', 'vendor', 'libgit2')
+LIBGIT22_DIR = File.join(CWD, '..', '..', 'vendor', 'libgit22')
 
 if arg_config("--use-system-libraries", !!ENV['RUGGED_USE_SYSTEM_LIBRARIES'])
   puts "Building Rugged using system libraries.\n"
 
-  dir_config('git2').any? or pkg_config('libgit2')
+  dir_config('git2').any? or pkg_config('libgit22')
 
   major = minor = nil
 
-  File.readlines(File.join(LIBGIT2_DIR, "include", "git2", "version.h")).each do |line|
+  File.readlines(File.join(LIBGIT22_DIR, "include", "git2", "version.h")).each do |line|
     if !major && (matches = line.match(/^#define LIBGIT2_VER_MAJOR ([0-9]+)$/))
       major = matches[1]
       next
@@ -63,7 +63,7 @@ else
     abort "ERROR: pkg-config is required to build Rugged."
   end
 
-  Dir.chdir(LIBGIT2_DIR) do
+  Dir.chdir(LIBGIT22_DIR) do
     Dir.mkdir("build") if !Dir.exists?("build")
 
     Dir.chdir("build") do
@@ -77,7 +77,7 @@ else
         $LDFLAGS << " " + "-L#{Dir.pwd}/deps/winhttp"
         $LIBS << " -lwinhttp -lcrypt32 -lrpcrt4 -lole32"
       else
-        pcfile = File.join(LIBGIT2_DIR, "build", "libgit2.pc")
+        pcfile = File.join(LIBGIT22_DIR, "build", "libgit2.pc")
         $LDFLAGS << " " + `pkg-config --libs --static #{pcfile}`.strip
       end
     end
@@ -94,12 +94,12 @@ else
   #
   # By putting the path to the vendored libgit2 library at the front of
   # $DEFLIBPATH, we can ensure that our bundled version is always used.
-  $DEFLIBPATH.unshift("#{LIBGIT2_DIR}/build")
-  dir_config('git2', "#{LIBGIT2_DIR}/include", "#{LIBGIT2_DIR}/build")
+  $DEFLIBPATH.unshift("#{LIBGIT22_DIR}/build")
+  dir_config('git2', "#{LIBGIT22_DIR}/include", "#{LIBGIT22_DIR}/build")
 end
 
 unless have_library 'git2' and have_header 'git2.h'
-  abort "ERROR: Failed to build libgit2"
+  abort "ERROR: Failed to build libgit22"
 end
 
 create_makefile("rugged/rugged")
